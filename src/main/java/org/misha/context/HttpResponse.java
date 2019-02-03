@@ -14,4 +14,6 @@ public interface HttpResponse {
     int getCode();
 
     String getPayLoad();
+
+    HttpURLConnection getConnection();
 }

@@ -3,6 +3,7 @@ package org.misha.context;
 import com.google.common.base.Joiner;
 import com.google.common.io.Resources;
 import org.apache.log4j.Logger;
+import org.misha.context.utils.PostParams;
 import org.misha.request.HttpSender;
 
 import javax.inject.Inject;
@@ -12,9 +13,9 @@ import java.util.Arrays;
 
 import static com.google.common.io.Resources.getResource;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.misha.context.Convert.DECODE;
-import static org.misha.context.PostParams.ERROR;
-import static org.misha.context.PostParams.joinEntry;
+import static org.misha.context.utils.Convert.DECODE;
+import static org.misha.context.utils.PostParams.ERROR;
+import static org.misha.context.utils.PostParams.joinEntry;
 
 @Named("sender")
 class Sender implements HttpSender {

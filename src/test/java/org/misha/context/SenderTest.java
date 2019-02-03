@@ -3,15 +3,15 @@ package org.misha.context;
 import com.google.common.base.Joiner;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.misha.context.PostParams;
+import org.misha.context.utils.PostParams;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.misha.context.Convert.DECODE;
-import static org.misha.context.PostParams.joinEntry;
+import static org.misha.context.utils.Convert.DECODE;
+import static org.misha.context.utils.PostParams.joinEntry;
 
 public class SenderTest {
     private static final Logger LOG = Logger.getLogger(PostParams.class);

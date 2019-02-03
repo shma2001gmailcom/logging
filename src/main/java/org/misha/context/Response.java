@@ -22,14 +22,17 @@ class Response implements HttpResponse {
         this.payLoad = payLoad;
     }
 
-    HttpURLConnection getConnection() {
+    @Override
+    public HttpURLConnection getConnection() {
         return connection;
     }
 
+    @Override
     public int getCode() {
         return code;
     }
 
+    @Override
     public String getPayLoad() {
         return payLoad;
     }

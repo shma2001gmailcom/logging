@@ -7,6 +7,8 @@ import java.net.URL;
 
 @Named
 class Client implements HttpClient {
+
+    @Override
     public HttpResponse request(String address, String query) {
         final HttpURLConnection connection;
         try {

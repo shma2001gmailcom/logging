@@ -1,6 +1,7 @@
 package org.misha.context;
 
 import org.apache.log4j.Logger;
+import org.misha.context.utils.PostParams;
 
 import java.io.IOException;
 import java.io.OutputStream;

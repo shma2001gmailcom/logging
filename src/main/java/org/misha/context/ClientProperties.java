@@ -1,6 +1,7 @@
 package org.misha.context;
 
 import org.apache.log4j.Logger;
+import org.misha.context.utils.Resources;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -11,8 +12,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import static java.lang.Thread.currentThread;
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
+import static org.misha.context.utils.Resources.*;
 
 @Named("clientProperties")
 class ClientProperties {
@@ -45,7 +46,7 @@ class ClientProperties {
     }
 
     private static InputStream readProperties() {
-        return currentThread().getContextClassLoader().getResourceAsStream("application.properties");
+        return getResource("application.properties");
     }
 
     String get(String key) {

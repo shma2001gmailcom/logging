@@ -1,4 +1,4 @@
-package org.misha.context;
+package org.misha.context.utils;
 
 import com.google.common.base.Joiner;
 
@@ -8,17 +8,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.trim;
-import static org.misha.context.Convert.ENCODE;
+import static org.misha.context.utils.Convert.ENCODE;
 
-class PostParams {
-    static final String ERROR = "error";
+public class PostParams {
+    public static final String ERROR = "error";
     private final String body;
 
-    PostParams(final String body) {
+    public PostParams(final String body) {
         this.body = body;
     }
 
-    String prepare() {
+    public String prepare() {
         Map<String, String> params = parseBody();
         return params.entrySet()
                      .stream()
@@ -35,7 +35,7 @@ class PostParams {
         return result;
     }
 
-    static String joinEntry(Convert option, String... pair) {
+    public static String joinEntry(Convert option, String... pair) {
         try {
             return Joiner.on("=").join(option.convert(pair[0]), option.convert(pair[1]));
         } catch (UnsupportedEncodingException e) {
