@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.annotation.Nonnull;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
@@ -42,12 +43,18 @@ class Response implements HttpResponse {
         if (connection == null) {
             return "Wrong request";
         }
-        try (BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())))) {
+        try (InputStream inputStream = connection.getInputStream();
+             InputStreamReader in = new InputStreamReader(inputStream);
+             BufferedReader br = new BufferedReader(in)
+        ) {
             result += read(br);
         } catch (ConnectException e) {
             result += e.getCause();
         } catch (Exception e) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader((connection.getErrorStream())))) {
+            try (InputStream inputStream = connection.getErrorStream();
+                 InputStreamReader in = new InputStreamReader(inputStream);
+                 BufferedReader br = new BufferedReader(in)
+            ) {
                 result += read(br);
             } catch (IOException ex) {
                 result += ex.getCause();
