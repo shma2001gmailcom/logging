@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.misha.context.utils.Convert.DECODE;
-import static org.misha.context.utils.PostParams.joinEntry;
+import static org.misha.context.utils.Resources.joinEntry;
 
 public class SenderTest {
     private static final Logger LOG = Logger.getLogger(PostParams.class);

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.trim;
 import static org.misha.context.utils.Convert.ENCODE;
+import static org.misha.context.utils.Resources.escapeJson;
+import static org.misha.context.utils.Resources.joinEntry;
 
 public class PostParams {
     public static final String ERROR = "error";
@@ -35,16 +37,6 @@ public class PostParams {
         return result;
     }
 
-    public static String joinEntry(Convert option, String... pair) {
-        try {
-            return Joiner.on("=").join(option.convert(pair[0]), option.convert(pair[1]));
-        } catch (UnsupportedEncodingException e) {
-            return "\n\n\n" + e.getMessage();
-        }
-    }
 
-    private static String escapeJson(String json) {
-        return "\"" + trim(json) + "\"";
-    }
 }
 
