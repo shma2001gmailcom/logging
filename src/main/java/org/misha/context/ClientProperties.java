@@ -1,7 +1,6 @@
 package org.misha.context;
 
 import org.apache.log4j.Logger;
-import org.misha.context.utils.Resources;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -13,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
-import static org.misha.context.utils.Resources.*;
+import static org.misha.context.utils.Resources.getResource;
 
 @Named("clientProperties")
 class ClientProperties {
@@ -23,7 +22,7 @@ class ClientProperties {
 
     @Inject
     ClientProperties(@Named("properties") final Properties properties,
-                            @Named("lock") final ReadWriteLock lock
+                     @Named("lock") final ReadWriteLock lock
     ) {
         this.properties = properties;
         this.lock = lock;
@@ -33,20 +32,20 @@ class ClientProperties {
     void create() {
         newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
             log.debug(properties);
-            lock.writeLock().lock();
-            try (InputStream in = readProperties()) {
-                properties.load(in);
-            } catch (IOException e) {
-                log.error(e, e.getCause());
-            } finally {
-                lock.writeLock().unlock();
-            }
+            put();
             log.debug(properties);
         }, 0L, 45L, TimeUnit.SECONDS);
     }
 
-    private static InputStream readProperties() {
-        return getResource("application.properties");
+    private void put() {
+        lock.writeLock().lock();
+        try (InputStream in = readProperties()) {
+            properties.load(in);
+        } catch (IOException e) {
+            log.error(e, e.getCause());
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     String get(String key) {
@@ -56,5 +55,9 @@ class ClientProperties {
         } finally {
             lock.readLock().unlock();
         }
+    }
+
+    private static InputStream readProperties() {
+        return getResource("application.properties");
     }
 }
